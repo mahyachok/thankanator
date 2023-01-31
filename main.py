@@ -1,7 +1,7 @@
 import csv 
 import docx
 
-ticker=0
+track=0
 with open('donor_list.csv', newline= '') as f:
     reader = csv.reader(f)
 
@@ -36,10 +36,10 @@ with open('donor_list.csv', newline= '') as f:
         doc.save(f"{first_name}{last_name}.docx")
         print(first_name, last_name, address, donation)
         
-        ticker=ticker+1 #to make sure the number of people is correct
+        track=track+1 #to make sure the number of people is correct
 
 
-print("number of people are:", ticker)#this is used to make sure the number of people is correct
+print("number of people are:", track)#this is used to make sure the number of people is correct
 
 
 
