@@ -1,7 +1,6 @@
 import csv 
 import docx
 
-track=0
 with open('donor_list.csv', newline= '') as f:
     reader = csv.reader(f)
 
@@ -15,16 +14,24 @@ with open('donor_list.csv', newline= '') as f:
         address= donors[2]
         donation= donors[3]
         #split the address into two parts
-        address =address.split(",", 1)
-        addressp1=address[0]
-        print("")
-        addressp2=address[1]
-        #for testing
-        print(address[1])
-        print("")
-        print(addressp1)
-        print(addressp2)
+        
+        
+        #if there isnt a comma or periood in something then it will default it to the except
+        try:
+           
+            if  '.' in address:
+                address =address.split('.', 1)
 
+            elif "," in address:
+                address =address.split(",", 1)
+
+            addressp1=address[0]
+            addressp2=address[1]
+
+        except:#if it dosent pare the way i like this is sort of the default thing. not really ideal. 
+            addressp1=donors[2]
+            addressp2=""
+        
         #this is where every thing is in the section of the word document, run is used to specify the text in a paragraph
         doc.paragraphs[5].text= first_name, last_name #first name
         doc.paragraphs[6].text= addressp1#address
@@ -33,14 +40,5 @@ with open('donor_list.csv', newline= '') as f:
         doc.paragraphs[12].runs[1].text= "$",donation #donations
 
         #this saves the document with the name of the person
-        doc.save(f"{first_name}{last_name}.docx")
-        print(first_name, last_name, address, donation)
-        
-        track=track+1 #to make sure the number of people is correct
-
-
-print("number of people are:", track)#this is used to make sure the number of people is correct
-
-
-
-
+        doc.save(f"{last_name}{first_name}.docx")
+    
